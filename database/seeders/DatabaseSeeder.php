@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Database\Seeders\UserSeeder;
+use Database\Seeders\TopicSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +21,17 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        User::create([
+            'name' => 'dylan',
+            'email' => 'dylanbergmann001@gmail.com',
+            'password' => '$2a$12$6arCB/RBrMyKoI0KYoz9EuWtpbgQwg5ux11TvSFQOoyQOTxFXW4hu',
+            'bio' => fake()->text()
+        ]);
+
+        $this->call([
+            UserSeeder::class,
+            TopicSeeder::class,
+        ]);
+
     }
 }
