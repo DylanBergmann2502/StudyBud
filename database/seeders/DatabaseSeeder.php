@@ -8,6 +8,7 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\RoomSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\TopicSeeder;
+use Database\Seeders\MessageSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TopicSeeder::class,
             RoomSeeder::class,
+            MessageSeeder::class
         ]);
 
     }

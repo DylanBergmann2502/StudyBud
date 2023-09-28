@@ -5,6 +5,7 @@ namespace Tests\Unit\Models;
 use Tests\TestCase;
 use App\Models\Room;
 use App\Models\User;
+use App\Models\Message;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 
@@ -45,5 +46,22 @@ class UserTest extends TestCase
         $this->assertCount(2, $participatedRooms);
         $this->assertTrue($participatedRooms->contains($room1));
         $this->assertTrue($participatedRooms->contains($room2));
+    }
+
+    public function test_it_has_many_messages()
+    {
+        // given
+        $user = User::factory()->create();
+        $room = Room::create(['name' => fake()->sentence()]);
+        $message1 = Message::factory()->create();
+        $message2 = Message::factory()->create();
+
+        // when
+        $messages = $user->messages;
+
+        // then
+        $this->assertCount(2, $messages);
+        $this->assertTrue($messages->contains($message1));
+        $this->assertTrue($messages->contains($message2));
     }
 }
