@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('topics', function (Blueprint $table) {
+        Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->char('name', 200)->unique();
+            $table->char('name', 200);
+            $table->text('description')->nullable();
+            $table->foreignId('topic_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('host_id')->nullable()->constrained(table: 'users')->nullOnDelete();
             $table->timestamps();
         });
+
     }
 
     /**
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('topics');
+        Schema::dropIfExists('rooms');
     }
 };
