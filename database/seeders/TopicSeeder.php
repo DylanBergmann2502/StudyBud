@@ -22,5 +22,14 @@ class TopicSeeder extends Seeder
         Topic::factory()->create([
             'name' => 'Laravel'
         ]);
+        Topic::factory()->create([
+            'name' => 'ExpressJS'
+        ]);
+        Topic::factory()->create([
+            'name' => 'Spring Boot'
+        ]);
+        Topic::factory()->create([
+            'name' => 'ASP.NET'
+        ]);
     }
 }
