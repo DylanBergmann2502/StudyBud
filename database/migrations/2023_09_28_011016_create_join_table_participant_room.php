@@ -12,9 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('participant_room', function (Blueprint $table) {
-            $table->primary(['room_id', 'participant_id']);
-            $table->foreignId('room_id')->constrained();
-            $table->foreignId('participant_id')->constrained(table: 'users');
+            $table->id();
+            $table->unique(['room_id', 'participant_id']);
+            // $table->foreignId('room_id')->constrained();
+            // $table->foreignId('participant_id')->constrained(table: 'users');
+            $table->unsignedBigInteger('participant_id');
+            $table->foreign('participant_id')->references('id')->on('users');
+
+            $table->unsignedBigInteger('room_id');
+            $table->foreign('room_id')->references('id')->on('rooms');
             $table->timestamps();
         });
     }
