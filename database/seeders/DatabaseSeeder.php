@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'dylan',
             'email' => 'dylanbergmann001@gmail.com',
-            'password' => '$2a$12$6arCB/RBrMyKoI0KYoz9EuWtpbgQwg5ux11TvSFQOoyQOTxFXW4hu',
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'bio' => fake()->text()
         ]);
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\SessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,16 @@ use App\Http\Controllers\TopicController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+// Core Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Session Routes
+Route::get('/login', [SessionController::class, 'create'])->name('login');
+Route::post('/authenticate', [SessionController::class, 'store'])->name('authenticate');
+Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
+
+// Topics Routes
 Route::get('/topics', [TopicController::class, 'index'])->name('topics');
+
+
 // Route::resource('photos', PhotoController::class);
