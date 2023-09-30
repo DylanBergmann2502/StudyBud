@@ -26,16 +26,21 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'dylan',
             'email' => 'dylanbergmann001@gmail.com',
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+            'password' => bcrypt('hoanhyeuen1'),
             'bio' => fake()->text()
         ]);
 
-        $this->call([
-            UserSeeder::class,
-            TopicSeeder::class,
-            RoomSeeder::class,
-            MessageSeeder::class
-        ]);
+        try {
+            $this->call([
+                UserSeeder::class,
+                TopicSeeder::class,
+                RoomSeeder::class,
+            ]);
+        } catch (\Exception $e) {
+            $this->call([
+                MessageSeeder::class
+            ]);
+        }
 
     }
 }

@@ -1165,8 +1165,8 @@ a {
 }
 
 .error-message {
-    color: #f56565;
-    font-size: 0.75rem;
+    color: --color-error;
+    font-size: 1.25rem;
     margin-top: 0.25rem;
 }
 
@@ -1175,7 +1175,7 @@ a {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #FF2D20;
+    background-color: var(--color-main);
     color: #FFFFFF;
     padding-left: 48px;
     padding-right: 48px;

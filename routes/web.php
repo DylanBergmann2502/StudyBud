@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoomController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\SessionController;
 
@@ -23,8 +24,8 @@ Route::get('/login', [SessionController::class, 'create'])->name('login');
 Route::post('/authenticate', [SessionController::class, 'store'])->name('authenticate');
 Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
-// Topics Routes
-Route::get('/topics', [TopicController::class, 'index'])->name('topics');
+// Topic Routes
+Route::get('/topics', [TopicController::class, 'index'])->name('topic.index');
 
-
-// Route::resource('photos', PhotoController::class);
+// Room Routes
+// Route::resource('/rooms', RoomController::class);
