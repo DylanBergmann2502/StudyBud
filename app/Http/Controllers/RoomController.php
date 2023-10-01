@@ -3,17 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
-use App\Http\Requests\StoreRoomRequest;
+use App\Models\Topic;
 use App\Http\Requests\UpdateRoomRequest;
+use App\Http\Requests\StoreTopicRoomRequest;
 
 class RoomController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware('auth')->except(['show']);
     }
 
     /**
@@ -21,15 +19,32 @@ class RoomController extends Controller
      */
     public function create()
     {
-        //
+        $topics = Topic::all();
+
+        return view('rooms.create', [
+            'topics' => $topics
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRoomRequest $request)
+    public function store(StoreTopicRoomRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $topic = Topic::firstOrCreate([
+            'name' => $validated['topic']
+        ]);
+
+        Room::create([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'topic_id' => $topic->id,
+            'host_id' => auth()->id()
+        ]);
+
+        return redirect()->route('home')->with('message', ' Listing created successfully');
     }
 
     /**

@@ -11,7 +11,7 @@ class TopicControllerTest extends TestCase
     public function test_index(): void
     {
         // when
-        $response = $this->get(route('topic.index'));
+        $response = $this->get(route('topics.index'));
 
         // then
         $response->assertStatus(200);

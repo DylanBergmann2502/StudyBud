@@ -20,7 +20,7 @@
                         </label>
                     </form>
                     <div class="mobile-menuItems">
-                        <a class="btn btn--main btn--pill" href="{{ route('topic.index') }}">Browse Topics</a>
+                        <a class="btn btn--main btn--pill" href="{{ route('topics.index') }}">Browse Topics</a>
                         <a class="btn btn--main btn--pill" href="#">Recent Activities</a>
                     </div>
                 </div>
@@ -29,7 +29,8 @@
                         <h2>Study Room</h2>
                         <p>{{ $rooms->count() }} Rooms available</p>
                     </div>
-                    <a class="btn btn--main" href="create-room.html">
+                    @auth
+                    <a class="btn btn--main" href="{{ route('rooms.create') }}">
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                         <title>add</title>
                         <path
@@ -38,6 +39,7 @@
                         </svg>
                         Create Room
                     </a>
+                    @endauth
                 </div>
 
                 <x-feed-component :rooms="$rooms" />

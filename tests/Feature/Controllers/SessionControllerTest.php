@@ -94,7 +94,7 @@ class SessionControllerTest extends TestCase
         $this->assertNotNull($request->session()->token());
 
         // Then the response should redirect to the home route
-        // $response->assertRedirect($uri = route('home'));
+        // $response->assertStatus(302);
 
         // Then the response should contain the expected message
         // $response->assertSessionHas('message', 'You have been logged out successfully');

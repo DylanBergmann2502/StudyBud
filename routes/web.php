@@ -25,7 +25,8 @@ Route::post('/authenticate', [SessionController::class, 'store'])->name('authent
 Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
 // Topic Routes
-Route::get('/topics', [TopicController::class, 'index'])->name('topic.index');
+Route::get('/topics', [TopicController::class, 'index'])->name('topics.index');
 
 // Room Routes
-// Route::resource('/rooms', RoomController::class);
+Route::resource('/rooms', RoomController::class)->except(['index']);
+
