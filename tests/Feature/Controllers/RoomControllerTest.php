@@ -71,4 +71,18 @@ class RoomControllerTest extends TestCase
         $this->assertEquals(1, Topic::count());
         $this->assertEquals(1, Room::count());
     }
+
+    public function test_show(): void
+    {
+        // given
+        $host = User::factory()->create();
+        $topic = Topic::factory()->create();
+        $room = Room::create(['name' => fake()->sentence(), 'host_id' => $host->id, 'topic_id' => $topic->id]);
+
+        // when
+        $response = $this->get(route('rooms.show', ['room' => $room]));
+
+        // then
+        $response->assertStatus(200);
+    }
 }

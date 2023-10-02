@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="roomListRoom__content">
-        <a href="room.html">{{ $room->name }}</a>
+        <a href="{{ route('rooms.show', ['room' => $room]) }}">{{ $room->name }}</a>
         <p> {{ $room->description }} </p>
     </div>
 
