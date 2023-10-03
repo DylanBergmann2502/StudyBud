@@ -17,10 +17,10 @@ return new class extends Migration
             // $table->foreignId('room_id')->constrained();
             // $table->foreignId('participant_id')->constrained(table: 'users');
             $table->unsignedBigInteger('participant_id');
-            $table->foreign('participant_id')->references('id')->on('users');
+            $table->foreign('participant_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('room_id');
-            $table->foreign('room_id')->references('id')->on('rooms');
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->timestamps();
         });
     }

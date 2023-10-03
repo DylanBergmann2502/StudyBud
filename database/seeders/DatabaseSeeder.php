@@ -30,6 +30,13 @@ class DatabaseSeeder extends Seeder
             'bio' => fake()->text()
         ]);
 
+        User::create([
+            'name' => 'dylan2',
+            'email' => 'dylanbergmann002@gmail.com',
+            'password' => bcrypt('hoanhyeuen1'),
+            'bio' => fake()->text()
+        ]);
+
         try {
             $this->call([
                 UserSeeder::class,

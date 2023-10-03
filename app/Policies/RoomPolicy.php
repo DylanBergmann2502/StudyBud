@@ -37,7 +37,7 @@ class RoomPolicy
      */
     public function update(User $user, Room $room): bool
     {
-        //
+        return $room->host()->is($user);
     }
 
     /**
@@ -45,7 +45,7 @@ class RoomPolicy
      */
     public function delete(User $user, Room $room): bool
     {
-        //
+        return $room->host()->is($user);
     }
 
     /**

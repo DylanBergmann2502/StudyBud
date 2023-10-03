@@ -4,7 +4,7 @@
           <div class="layout__box">
             <div class="layout__boxHeader">
               <div class="layout__boxTitle">
-                <a href="index.html">
+                <a href="{{ route('rooms.show', ['room' => $room]) }}">
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                     <title>arrow-left</title>
                     <path
@@ -12,26 +12,27 @@
                     </path>
                   </svg>
                 </a>
-                <h3>Create Study Room</h3>
+                <h3>Edit Study Room</h3>
               </div>
             </div>
             <div class="layout__body">
-              <form class="form" action="{{ route('rooms.store') }}" method="POST">
+              <form class="form" action="{{ route('rooms.update', ['room' => $room->id]) }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="form__group">
                     <label for="topic">Topic</label>
-                    <input required type="text" name="topic" id="topic" list="topic-list" value="{{ old('topic') }}" />
+                    <input required type="text" name="topic" id="topic" list="topic-list" value="{{ $room->topic->name }}" />
                     <datalist id="topic-list">
                       <select id="topic">
                         <option value="">Select your topic</option>
                         @foreach ($topics as $topic)
-                        <option value="{{ $topic->name }}">{{ $topic->name }}</option>
+                        <option value={{ $topic->name }}>{{ $topic->name }}</option>
                         @endforeach
                       </select>
                     </datalist>
                     @error('topic')
                     <p class="error-message">{{$message}}</p>
-                  @enderror
+                    @enderror
                 </div>
 
                 <div class="form__group">
@@ -41,7 +42,7 @@
                     name="name"
                     type="text"
                     placeholder="E.g. Mastering Python + Django"
-                    value="{{ old('name') }}"
+                    value="{{ $room->name }}"
                   />
                   @error('name')
                     <p class="error-message">{{$message}}</p>
@@ -50,14 +51,14 @@
 
                 <div class="form__group">
                   <label for="description">Room Description</label>
-                  <textarea name="description" id="description" value="{{ old('description') }}" placeholder="Write about your study group..."></textarea>
+                  <textarea name="description" id="description" placeholder="Write about your study group..." >{{ $room->description }}</textarea>
                   @error('description')
                     <p class="error-message">{{$message}}</p>
                   @enderror
                 </div>
                 <div class="form__action">
-                  <a class="btn btn--dark" href="{{ route('home') }}">Cancel</a>
-                  <button class="btn btn--main" type="submit">Create Room</button>
+                  <a class="btn btn--dark" href="{{ route('rooms.show', ['room' => $room]) }}">Cancel</a>
+                  <button class="btn btn--main" type="submit">Update Room</button>
                 </div>
               </form>
             </div>
@@ -65,4 +66,3 @@
         </div>
     </main>
 </x-layout>
-

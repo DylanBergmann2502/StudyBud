@@ -6,6 +6,7 @@ use App\Models\Room;
 use App\Models\Topic;
 use App\Http\Requests\UpdateRoomRequest;
 use App\Http\Requests\StoreTopicRoomRequest;
+use App\Http\Requests\UpdateTopicRoomRequest;
 
 class RoomController extends Controller
 {
@@ -44,7 +45,7 @@ class RoomController extends Controller
             'host_id' => auth()->id()
         ]);
 
-        return redirect()->route('home')->with('message', ' Listing created successfully');
+        return redirect()->route('home')->with('message', ' Room created successfully');
     }
 
     /**
@@ -62,15 +63,37 @@ class RoomController extends Controller
      */
     public function edit(Room $room)
     {
-        //
+        $this->authorize('update', $room);
+
+        $topics = Topic::all();
+
+        return view('rooms.edit', [
+            'room' => $room,
+            'topics' => $topics
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRoomRequest $request, Room $room)
+    public function update(UpdateTopicRoomRequest $request, Room $room)
     {
-        //
+        $this->authorize('update', $room);
+
+        $validated = $request->validated();
+
+        $topic = Topic::firstOrCreate([
+            'name' => $validated['topic']
+        ]);
+
+        $room->update([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'topic_id' => $topic->id,
+            'host_id' => auth()->id()
+        ]);
+
+        return redirect()->route('rooms.show', ['room' => $room->id])->with('message', 'Room updated successfully');
     }
 
     /**
@@ -78,6 +101,10 @@ class RoomController extends Controller
      */
     public function destroy(Room $room)
     {
-        //
+        $this->authorize('delete', $room);
+
+        $room->delete();
+
+        return redirect()->route('home')->with('message', 'Room deleted successfully');
     }
 }

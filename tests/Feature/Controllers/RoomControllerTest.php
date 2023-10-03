@@ -85,4 +85,6 @@ class RoomControllerTest extends TestCase
         // then
         $response->assertStatus(200);
     }
+
+    // Test edit/update/delete
 }
