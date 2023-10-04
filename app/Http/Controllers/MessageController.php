@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\Message;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
 
 class MessageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -27,9 +32,21 @@ class MessageController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMessageRequest $request)
+    public function store(StoreMessageRequest $request, Room $room)
     {
-        //
+        $validated = $request->validated();
+
+        Message::create([
+            'body' => $validated['body'],
+            'user_id' => auth()->id(),
+            'room_id' => $room->id
+        ]);
+
+        if (! $room->participants()->where('participant_id', auth()->id())->exists()) {
+            $room->participants()->attach(auth()->user());
+        }
+
+        return redirect()->route('rooms.show', ['room' => $room->id])->with('message', 'Message created successfully');
     }
 
     /**

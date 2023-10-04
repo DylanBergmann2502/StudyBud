@@ -101,6 +101,7 @@
               {{-- Messages --}}
               <div class="room__conversation">
                 <div class="threads scroll">
+                  @foreach($messages as $message)
                   <div class="thread">
                     <div class="thread__top">
                       <div class="thread__author">
@@ -108,9 +109,9 @@
                           <div class="avatar avatar--small">
                             <img src="https://randomuser.me/api/portraits/men/37.jpg" />
                           </div>
-                          <span>@dennis_ivy</span>
+                          <span>{{'@' . $message->user->name }}</span>
                         </a>
-                        <span class="thread__date">3 day ago</span>
+                        <span class="thread__date">{{ $message->created_at->diffForHumans() }}</span>
                       </div>
                       <div class="thread__delete">
                         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
@@ -122,98 +123,28 @@
                       </div>
                     </div>
                     <div class="thread__details">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque nobis, deserunt cum quibusdam aliquam
-                      nihil unde et impedit, quaerat! Corporis praesentium aspernatur autem laboriosam natus similique,
-                      adipisci nam maxime.
+                      {{ $message->body }}
                     </div>
                   </div>
-                  <div class="thread">
-                    <div class="thread__top">
-                      <div class="thread__author">
-                        <a href="#" class="thread__authorInfo">
-                          <div class="avatar avatar--small">
-                            <img src="https://randomuser.me/api/portraits/men/37.jpg" />
-                          </div>
-                          <span>@dennis_ivy</span>
-                        </a>
-                        <span class="thread__date">3 day ago</span>
-                      </div>
-                      <div class="thread__delete">
-                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                          <title>remove</title>
-                          <path
-                            d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"
-                          ></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="thread__details">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque nobis, deserunt cum quibusdam aliquam
-                      nihil unde et impedit, sequi, modi quos porro iure enim suscipit itaque earum tenetur praesentium
-                      quaerat! Corporis praesentium aspernatur autem laboriosam natus similique, adipisci nam maxime.
-                    </div>
-                  </div>
-                  <div class="thread">
-                    <div class="thread__top">
-                      <div class="thread__author">
-                        <a href="#" class="thread__authorInfo">
-                          <div class="avatar avatar--small">
-                            <img src="https://randomuser.me/api/portraits/men/37.jpg" />
-                          </div>
-                          <span>@dennis_ivy</span>
-                        </a>
-                        <span class="thread__date">3 day ago</span>
-                      </div>
-                      <div class="thread__delete">
-                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                          <title>remove</title>
-                          <path
-                            d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"
-                          ></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="thread__details">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque nobis, deserunt cum quibusdam aliquam
-                      nihil unde et impedit, sequi, modi quos porro iure enim suscipit itaque earum tenetur praesentium
-                      quaerat! Corporis praesentium aspernatur autem laboriosam natus similique, adipisci nam maxime.
-                    </div>
-                  </div>
-                  <div class="thread">
-                    <div class="thread__top">
-                      <div class="thread__author">
-                        <a href="#" class="thread__authorInfo">
-                          <div class="avatar avatar--small">
-                            <img src="https://randomuser.me/api/portraits/men/37.jpg" />
-                          </div>
-                          <span>@dennis_ivy</span>
-                        </a>
-                        <span class="thread__date">3 day ago</span>
-                      </div>
-                      <div class="thread__delete">
-                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                          <title>remove</title>
-                          <path
-                            d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"
-                          ></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="thread__details">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque nobis, deserunt cum quibusdam aliquam
-                      nihil unde et impedit, sequi, modi quos porro iure enim suscipit itaque earum tenetur praesentium.
-                    </div>
-                  </div>
+                  @endforeach
                 </div>
               </div>
             </div>
+            @auth
             <div class="room__message">
-              <form action="#"><input name="" placeholder="Write your message here..." /></form>
+              <form action="{{ route('rooms.messages.store', ['room' => $room]) }}" method="POST">
+                @csrf
+                <input name="body" placeholder="Write your message here..." value="{{ old('body') }}" />
+                @error('body')
+                    <p class="error-message">{{$message}}</p>
+                @enderror
+              </form>
             </div>
+            @endauth
           </div>
           <!-- Room End -->
 
-          <!--   Start -->
+          <!-- Participants Start -->
           <div class="participants">
             <h3 class="participants__top">Participants <span>({{ $room->participants->count() }} Joined)</span></h3>
             <div class="participants__list scroll">
@@ -230,7 +161,7 @@
               @endforeach
             </div>
           </div>
-          <!--  End -->
+          <!-- Participants End -->
         </div>
     </main>
 </x-layout>

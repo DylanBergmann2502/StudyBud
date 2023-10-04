@@ -53,8 +53,11 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
+        $messages = $room->messages;
+
         return view('rooms.show', [
             'room' => $room,
+            'messages' => $messages
         ]);
     }
 

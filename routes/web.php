@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SessionController;
 
 /*
@@ -29,4 +30,8 @@ Route::get('/topics', [TopicController::class, 'index'])->name('topics.index');
 
 // Room Routes
 Route::resource('/rooms', RoomController::class)->except(['index']);
+
+// Message Routes
+Route::resource('rooms.messages', MessageController::class)->only(['store'])->middleware('auth');
+
 
