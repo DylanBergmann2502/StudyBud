@@ -78,6 +78,12 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
-        //
+        $this->authorize('delete', $message);
+
+        $message->delete();
+
+        $room = $message->room;
+
+        return redirect()->route('rooms.show', ['room' => $room->id])->with('message', 'Message deleted successfully');
     }
 }

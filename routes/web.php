@@ -32,6 +32,6 @@ Route::get('/topics', [TopicController::class, 'index'])->name('topics.index');
 Route::resource('/rooms', RoomController::class)->except(['index']);
 
 // Message Routes
-Route::resource('rooms.messages', MessageController::class)->only(['store'])->middleware('auth');
-
+Route::resource('rooms.messages', MessageController::class)->only(['store']);
+Route::resource('/messages', MessageController::class)->only(['destroy']);
 

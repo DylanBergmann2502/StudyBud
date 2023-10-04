@@ -73,4 +73,20 @@ class MessageControllerTest extends TestCase
         $this->assertEquals(0, $participantsCountBefore);
         $this->assertEquals(1, $participantsCountAfter);
     }
+
+    public function test_destroy(): void
+    {
+        // given
+        $host = User::factory()->create();
+        $topic = Topic::factory()->create();
+        $room = Room::create(['name' => fake()->sentence(), 'host_id' => $host->id, 'topic_id' => $topic->id]);
+        $message = Message::factory()->create();
+
+        // when
+        $response = $this->delete(route('messages.destroy', ['message' => $message->id]));
+
+        // then
+        $response->assertRedirect(route('rooms.show', ['room' => $room->id]));
+        $this->assertEquals(0, Message::count());
+    }
 }

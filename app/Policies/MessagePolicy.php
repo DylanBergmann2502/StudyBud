@@ -45,7 +45,7 @@ class MessagePolicy
      */
     public function delete(User $user, Message $message): bool
     {
-        //
+        return $message->user()->is($user);
     }
 
     /**
