@@ -4,21 +4,30 @@
         <div class="layout__box">
           <div class="layout__boxHeader">
             <div class="layout__boxTitle">
-              <h3>Login</h3>
+              <h3>Sign Up</h3>
             </div>
           </div>
           <div class="layout__body">
             <h2 class="auth__tagline">Find your study partner</h2>
 
-            <form class="form" action="{{ route('authenticate') }}" method="POST">
+            <form class="form" action="{{ route('users.store') }}" method="POST">
               @csrf
               <div class="form__group form__group">
-                <label for="room_name">Email</label>
+                <label for="email">Email</label>
                 <input id="email" name="email" type="email" value="{{old('email')}}" placeholder="e.g. abc@edf.com" />
                 @error('email')
                     <p class="error-message">{{$message}}</p>
                 @enderror
               </div>
+
+              <div class="form__group form__group">
+                <label for="name">Username</label>
+                <input id="name" name="name" type="text" value="{{old('name')}}" placeholder="e.g. dennis_ivy" />
+                @error('name')
+                    <p class="error-message">{{$message}}</p>
+                @enderror
+              </div>
+
               <div class="form__group">
                 <label for="password">Password</label>
                 <input
@@ -29,6 +38,19 @@
                 />
                 @error('password')
                     <p class="error-message">{{$message}}</p>
+                @enderror
+              </div>
+
+              <div class="form__group">
+                <label for="password_confirmation">Confirm Password</label>
+                <input
+                  id="password_confirmation"
+                  name="password_confirmation"
+                  type="password"
+                  placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                />
+                @error('password_confirmation')
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
               </div>
 
@@ -48,8 +70,8 @@
             </form>
 
             <div class="auth__action">
-              <p>Haven't signed up yet?</p>
-              <a href="{{ route('register') }}" class="btn btn--link">Sign Up</a>
+                <p>Already had an account?</p>
+                <a href="{{ route('login') }}" class="btn btn--link">Sign In</a>
             </div>
           </div>
         </div>

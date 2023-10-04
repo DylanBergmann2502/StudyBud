@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SessionController;
@@ -19,6 +20,10 @@ use App\Http\Controllers\SessionController;
 */
 // Core Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// User Routes
+Route::get('/register', [UserController::class, 'create'])->name('register');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
 // Session Routes
 Route::get('/login', [SessionController::class, 'create'])->name('login');
