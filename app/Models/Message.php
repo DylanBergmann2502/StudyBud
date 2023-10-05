@@ -23,6 +23,23 @@ class Message extends Model
         });
     }
 
+    public function scopeFilter($query, array $filters)
+    {
+        if ($filters['q'] ?? false) {
+            $query->whereHas('room', function ($query) use ($filters)
+            {
+                $query->whereHas('topic', function ($query) use ($filters)
+                {
+                    $query->where('name', 'like', '%' . $filters['q'] . '%');
+                })
+                     ->orWhere('name', 'like', '%' . $filters['q'] . '%')
+                     ->orWhere('description', 'like', '%' . $filters['q'] . '%');
+            });
+        }
+    }
+
+
+
     // Relationships
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);

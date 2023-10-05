@@ -13,7 +13,7 @@ class HomeController extends Controller
         $topics = Topic::all()->take(5);
         $rooms = Room::with('host', 'participants', 'topic')->latest()->filter(request(['q']))->get();
         $roomCount = Room::all()->count();
-        $messages = Message::with('user', 'room')->take(5)->get();
+        $messages = Message::with('user', 'room')->latest()->filter(request(['q']))->take(3)->get();
 
         return view('core.index', [
             'topics' => $topics,
