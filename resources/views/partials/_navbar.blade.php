@@ -26,7 +26,7 @@
         @else
         <!-- Logged In -->
         <div class="header__user">
-          <a href="profile.html">
+          <a href="{{ route('users.show', ['user' => auth()->user()->id ]) }}">
             <div class="avatar avatar--medium active">
               <img src="https://randomuser.me/api/portraits/men/37.jpg" />
             </div>

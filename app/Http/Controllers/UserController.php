@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\User;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 
@@ -43,9 +45,20 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $user)
     {
-        //
+        $topics = Topic::all()->take(5);
+        $roomCount = Room::all()->count();
+        $rooms = $user->hosted_rooms;
+        $messages = $user->messages;
+
+        return view('users.profile', [
+            'user' => $user,
+            'topics' => $topics,
+            'rooms' => $rooms,
+            'messages' => $messages,
+            'roomCount' => $roomCount
+        ]);
     }
 
     /**

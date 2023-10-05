@@ -24,6 +24,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // User Routes
 Route::get('/register', [UserController::class, 'create'])->name('register');
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::get('/profile/{user}/', [UserController::class, 'show'])->name('users.show');
+Route::post('/profile/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 
 // Session Routes
 Route::get('/login', [SessionController::class, 'create'])->name('login');

@@ -8,7 +8,7 @@
     @foreach($messages as $message)
     <div class="activities__box">
         <div class="activities__boxHeader roomListRoom__header">
-            <a href="profile.html" class="roomListRoom__author">
+            <a href="{{ route('users.show', ['user' => $message->user->id ]) }}" class="roomListRoom__author">
             <div class="avatar avatar--small">
                 <img src="https://randomuser.me/api/portraits/women/11.jpg" />
             </div>

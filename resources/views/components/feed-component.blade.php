@@ -3,7 +3,7 @@
 @foreach($rooms as $room)
 <div class="roomListRoom">
     <div class="roomListRoom__header">
-        <a href="profile.html" class="roomListRoom__author">
+        <a href="{{ route('users.show', ['user' => $room->host->id ]) }}" class="roomListRoom__author">
         <div class="avatar avatar--small">
             {{-- $room->host->avatar --}}
             <img src="https://randomuser.me/api/portraits/women/11.jpg" />

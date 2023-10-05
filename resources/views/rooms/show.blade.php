@@ -158,7 +158,7 @@
             <h3 class="participants__top">Participants <span>({{ $room->participants->count() }} Joined)</span></h3>
             <div class="participants__list scroll">
               @foreach($room->participants as $participant)
-              <a href="profile.html" class="participant">
+              <a href="{{ route('users.show', ['user' => $participant->id ]) }}" class="participant">
                 <div class="avatar avatar--medium">
                   <img src="https://randomuser.me/api/portraits/men/37.jpg" />
                 </div>
