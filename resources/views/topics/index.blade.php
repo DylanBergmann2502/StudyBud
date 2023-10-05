@@ -31,11 +31,11 @@
 
             <ul class="topics__list">
                 <li>
-                    <a href="{{ route('home') }}" class="active">All <span>{{ $topics->count() }}</span></a>
+                    <a href="{{ route('home') }}" class="active">All <span>{{ $roomCount }}</span></a>
                 </li>
                 @foreach($topics as $topic)
                     <li>
-                        <a href="/">{{ $topic->name }}<span>{{ $topic->rooms()->count() }}</span></a>
+                        <a href="/?q={{ $topic->name }}">{{ $topic->name }}<span>{{ $topic->rooms()->count() }}</span></a>
                     </li>
                 @endforeach
             </ul>

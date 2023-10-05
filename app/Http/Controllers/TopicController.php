@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\Topic;
 use App\Http\Requests\StoreTopicRequest;
 use App\Http\Requests\UpdateTopicRequest;
@@ -14,9 +15,11 @@ class TopicController extends Controller
     public function index()
     {
         $topics = Topic::all();
+        $roomCount = Room::all()->count();
 
         return view('topics.index', [
             'topics' => $topics,
+            'roomCount' => $roomCount,
         ]);
     }
 

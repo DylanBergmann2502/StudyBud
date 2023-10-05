@@ -2,7 +2,7 @@
     <main class="layout layout--3">
         <div class="container">
             <!-- Topics Start -->
-            <x-topics-component :topics="$topics" />
+            <x-topics-component :topics="$topics" :roomCount="$roomCount" />
             <!-- Topics End -->
 
             <!-- Room List Start -->

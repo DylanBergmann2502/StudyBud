@@ -18,11 +18,14 @@ class Room extends Model
     protected $fillable = ['name', 'description', 'host_id', 'topic_id'];
 
     // Scopes
-    protected static function booted(): void
+    public function scopeFilter($query, array $filters)
     {
-        static::addGlobalScope('order_by', function (Builder $builder) {
-            $builder->orderBy('updated_at', 'desc')->orderBy('created_at', 'desc');
-        });
+        if ($filters['q'] ?? false) {
+            $query->whereHas('topic', function ($query) use ($filters)
+            {
+                $query->where('name', $filters['q']);
+            });
+        }
     }
 
     // Relationships

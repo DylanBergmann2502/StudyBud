@@ -11,12 +11,14 @@ class HomeController extends Controller
 {
     public function index() {
         $topics = Topic::all()->take(5);
-        $rooms = Room::with('host', 'participants', 'topic')->get();
+        $rooms = Room::with('host', 'participants', 'topic')->latest()->filter(request(['q']))->get();
+        $roomCount = Room::all()->count();
         $messages = Message::with('user', 'room')->take(5)->get();
 
         return view('core.index', [
             'topics' => $topics,
             'rooms' => $rooms,
+            'roomCount' => $roomCount,
             'messages' => $messages,
         ]);
     }
