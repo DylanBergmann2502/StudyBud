@@ -23,8 +23,10 @@ class Room extends Model
         if ($filters['q'] ?? false) {
             $query->whereHas('topic', function ($query) use ($filters)
             {
-                $query->where('name', $filters['q']);
-            });
+                $query->where('name', 'like', '%' . $filters['q'] . '%');
+            })
+                 ->orWhere('name', 'like', '%' . $filters['q'] . '%')
+                 ->orWhere('description', 'like', '%' . $filters['q'] . '%');
         }
     }
 
