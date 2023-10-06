@@ -4,6 +4,7 @@ namespace Tests\Feature\Controllers;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -57,5 +58,47 @@ class UserControllerTest extends TestCase
 
         // then
         $response->assertStatus(200);
+    }
+
+    public function test_edit_same_user(): void
+    {
+        // given
+        $user = auth()->user();
+
+        // when
+        $response = $this->get(route('users.edit', ['user' => $user]));
+
+        // then
+        $response->assertStatus(200);
+    }
+
+    public function test_edit_different_user(): void
+    {
+        // given
+        $differentUser = User::factory()->create();
+
+        // when
+        $response = $this->get(route('users.edit', ['user' => $differentUser]));
+
+        // then
+        $response->assertStatus(403);
+    }
+
+    public function test_update_with_nonexisting_topic()
+    {
+        // given
+        $user = auth()->user();
+
+        $request = new UpdateUserRequest();
+        $request->merge([
+            'name' => 'Test Username',
+            'bio' => 'Test Bio',
+        ]);
+
+        // when
+        $response = $this->put(route('users.update', $user), $request->input());
+
+        // then
+        $response->assertRedirect(route('users.show', $user));
     }
 }

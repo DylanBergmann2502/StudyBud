@@ -25,7 +25,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/register', [UserController::class, 'create'])->name('register');
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
 Route::get('/profile/{user}/', [UserController::class, 'show'])->name('users.show');
-Route::post('/profile/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::get('/profile/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+Route::put('/profile/{user}/', [UserController::class, 'update'])->name('users.update');
 
 // Session Routes
 Route::get('/login', [SessionController::class, 'create'])->name('login');

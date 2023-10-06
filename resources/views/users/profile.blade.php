@@ -16,7 +16,9 @@
               <div class="profile__info">
                 <h3>{{ $user->name }}</h3>
                 <p>{{'@' . $user->name }}</p>
-                <a href="edit-user.html" class="btn btn--main btn--pill">Edit Profile</a>
+                @if($user->is(auth()->user()))
+                <a href="{{ route('users.edit', ['user' => $user->id]) }}" class="btn btn--main btn--pill">Edit Profile</a>
+                @endif
               </div>
               <div class="profile__about">
                 <h3>About</h3>

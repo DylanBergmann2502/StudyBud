@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -64,17 +65,27 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        $this->authorize('update', $user);
+
+        return view('users.edit', [
+            'user' => $user,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $this->authorize('update', $user);
+
+        $validated = $request->validated();
+
+        $user->update($validated);
+
+        return redirect()->route('users.show', ['user' => $user->id])->with('message', 'Profile updated successfully');
     }
 
     /**
